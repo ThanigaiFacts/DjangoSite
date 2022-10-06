@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Blogs{% endblock %}
 {% block content %}
+{% load static %}
  <div class = "container-fluid" style="padding:1%;margin:5% auto;">
     <div class="row blogindex-div">
-       {% for blogpost in jobj[0]["blog"]: %}
+       {% for blogpost in jobj %}
        <div class="col-xl-3 col-lg-4 col-md-6">
            <div class="card card-style" style="padding:2%;">
-             <img class="card-img-top cardImage" src="{{ url_for('static',filename = 'images/workImg.png') }}" alt="Card image">
+             <img class="card-img-top cardImage" src="{% static 'images/workImg.png' %}" alt="Card image">
              <div class="card-body">
-                  <h4 class="card-title cardTitleStyle">{{ blogpost["title"] }}</h4>
-                  <p class="card-text cardBodyStyle">{{ blogpost["body"] }}</p>
-                  <a href="{{ url_for('showDetailBlog', num = loop.index) }}"  class="btn btn-primary">Read More</a>
+                  <h4 class="card-title cardTitleStyle">{{ blogpost.title }}</h4>
+                  <p class="card-text cardBodyStyle">{{ blogpost.body }}</p>
+                  <a href="{% url 'detailblog' forloop.counter0%}"  class="btn btn-primary">Read More</a>
              </div>
            </div>
          </div>
