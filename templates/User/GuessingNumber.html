@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Game {% endblock %}
+{% block content %}
+      <div>
+         <p class = "text" id="guess-resp-text">Number Guessing Game</p>
+         <img src ="https://media1.giphy.com/media/xUn3CftPBajoflzROU/200w.webp?cid=ecf05e47vnkyt2zffj8sz4htd27jxd8dcc9mt2kjeky9l5y1&rid=200w.webp&ct=g" class="img-style" id="guess-img">
+      </div>
+
+     <div class="container" id = "guess-input-div" style="visibility:visible;">
+         <div class="row guess-row-style">
+             <div class="col-sm-12">
+                 <p class="guess-label">Guess Number Between<br>(1 - 10)</p>
+             </div>
+             <div class="col-sm-12">
+                 <input type="number" class="guess-input" id="userGuess" name = "userGuessValue">
+             </div>
+             <div class="col-sm-12">
+                 <button class="btn  btn-success guessBtn" onclick="guessCheck()">Guess</button>
+             </div>
+         </div>
+     </div>
+
+<script>
+function guessCheck(){
+  var actualValue = {{ number }};
+  var guessValue =  document.getElementById("userGuess").value;
+  if (guessValue == 0){
+      document.getElementById("guess-resp-text").style.color = "brown";
+      document.getElementById("userGuess").focus();
+     }
+  else if ( guessValue  >  actualValue){
+      document.getElementById("guess-resp-text").innerHTML = "You Guessed Higher";
+      document.getElementById("guess-resp-text").style.color = "red";
+      document.getElementById("guess-img").src = "https://media.giphy.com/media/W0Pts08xV5JJp2Nj4N/giphy.gif";
+      document.getElementById("userGuess").value = "";
+      document.getElementById("userGuess").focus();
+      //alert("Oops,You Guessed Higher");
+      show_alert("Oops,You Guessed Higher");
+
+  }
+  else if (guessValue  <  actualValue){
+      document.getElementById("guess-resp-text").innerHTML = "You Guessed Lower";
+      document.getElementById("guess-resp-text").style.color = "orange";
+      document.getElementById("guess-img").src = "https://media.giphy.com/media/DVSpPORBAgDwiXCjzf/giphy.gif";
+      document.getElementById("userGuess").focus();
+      document.getElementById("userGuess").value = "";
+      //alert("You Guessed Lower, try again");
+      show_alert("You Guessed Lower, try again");
+
+    }
+  else {
+      document.getElementById("guess-resp-text").innerHTML = "You Guessed Correctly!!";
+      document.getElementById("guess-resp-text").style.color = "green";
+      document.getElementById("guess-img").src = "https://media.giphy.com/media/hz6L3FwCc3hI2zUAFI/giphy.gif";
+      document.getElementById("userGuess").value = "";
+      document.getElementById("userGuess").focus();
+      document.getElementById("guess-input-div").style.visibility = "hidden";
+     }
+}
+guessCheck();
+</script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}News{% endblock %}
+{% block content %}
+<div class="container">
+   <div class="row news-row-style">
+     <div class="col-sm-12">
+         <p class="news-title">தலைப்புச் செய்திகள்</p>
+     </div>
+     <div class="col-sm-12">
+         <p class="news-dt">{{ newsDt }}</p>
+     </div>
+     <div class="col-sm-12">
+        <img class="news-img" id="News-img">
+     </div>
+     <div class="col-sm-12">
+       <p class="news-data" id="News-data"></p>
+     </div>
+   </div>
+    <div class="row btn-news-readmore-row">
+     <div class="col">
+        <button class="btn btn-success btn-lg news-btn" id="read-Btn" onclick="readMore()">Read More</button>
+     </div>
+    </div>
+    <div class="row btn-news-control-row">
+     <div class="col">
+         <button class="btn btn-outline-primary btn-lg news-btn" id="Back-Btn" onclick="prevNews()"><span class="fa-solid fa-chevron-left" style="margin-right:5px;"></span>Back</button>
+     </div>
+     <div class="col">
+        <button class="btn btn-outline-primary btn-lg news-btn" id="Next-Btn" onclick="nextNews()">Next<span class="fa-solid fa-chevron-right" style="margin-left:5px;"></span></button>
+     </div>
+   </div>
+</div>
+
+<script>
+     var c = {{ posCounter }} ;
+     var newsTitle  =  {{ newsData|tojson }} ;
+     var newsImage  =  {{ newsImg|tojson }} ;
+     var detailNews =  {{ detailedNews|tojson }};
+
+     document.getElementById("News-data").innerHTML = newsTitle[c];
+     document.getElementById("News-img").src = newsImage[c];
+
+       function readMore(){
+        document.getElementById("News-data").innerHTML = detailNews[c];
+        document.getElementById("News-data").style.textAlign = "justify"
+     }
+
+
+     function disablebtn()
+     {
+     if (c < 1)
+     {
+        document.getElementById("Back-Btn").disabled = true;
+     }
+      else{
+        document.getElementById("Back-Btn").disabled = false;
+      }
+     }
+     function nextNews(){
+       c = c + 1;
+       disablebtn();
+       if (newsImage[c] == undefined){
+         document.getElementById("Next-Btn").disabled = true;
+         window.location.assign(" {{ url_for('newsFun',num = pageCounter + 1) }}")
+       }
+       else{
+         document.getElementById("News-img").src = newsImage[c];
+         document.getElementById("News-data").innerHTML = newsTitle[c];
+
+       }
+
+     }
+       function prevNews(){
+       c = c - 1;
+       disablebtn();
+       document.getElementById("News-img").src = newsImage[c];
+       document.getElementById("News-data").innerHTML = newsTitle[c];
+     }
+
+
+
+disablebtn();
+
+</script>
+
+{% endblock %}

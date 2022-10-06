@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block header %}
+  <!-- Navigation bar -->
+    <section id="nav-section">
+     <nav class="navbar bg-success navbar-dark navbar-expand-md">
+        <div class="container-fluid navigation-container">
+        <a href="{% url contact %}" class="navbar-brand brand-style">Thanigai</a>
+        <button type="button" name="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+           <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item item-style"><a href="{{ reverse('IndexFun') }}" class="nav-link active link-style">Home</a></li>
+          <li class="nav-item item-style"><a href="{{ reverse('blogIndexFun') }}" class="nav-link link-style">Blog</a></li>
+          <li class="nav-item item-style">
+             <div class="dropdown">
+                <a class="nav-link link-style dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projects</a>
+                  <ul class="dropdown-menu dd-menu-style">
+                     <li><a href="{{ reverse('newsFun',num = 1) }}" class="dropdown-item  dd-link-style">Daily News</a></li>
+                     <li><a href="{{ reverse('NumberGuessing_fun') }}" class="dropdown-item  dd-link-style">Guessing Game</a></li>
+                  </ul>
+             </div>
+          </li>
+          <li class="nav-item item-style"><a href="{{ reverse('admin_home') }}" class="nav-link link-style">Admin</a></li>
+        </ul>
+        </div>
+      </div>
+     </nav>
+   </section>
+{% endblock %}
