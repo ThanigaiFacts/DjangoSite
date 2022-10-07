@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import html
-from flask import render_template
+
 
 class News:
     def __init__(self):
