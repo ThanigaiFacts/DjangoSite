@@ -9,8 +9,8 @@ def generateRandomNumber():
 
 def getBlogData():
     # https://mocki.io/fake-json-api --> json website
-     return requests.get("https://mocki.io/v1/f4aff8ed-6d04-43e1-ac4f-ce373a4a64e0").json()
-    #return requests.get(os.getenv("BLOG_END_POINT")).json()
+     #return requests.get("https://mocki.io/v1/f4aff8ed-6d04-43e1-ac4f-ce373a4a64e0").json()
+    return requests.get(os.getenv("BLOG_END_POINT")).json()
 
 
 def send_mail(name,mail,mobile,msg):
@@ -34,10 +34,10 @@ def send_mail(name,mail,mobile,msg):
 
 def contact_admin(request):
     if request.method == 'POST':
-        Name = request.form['userName']
-        Mail = request.form['userMail']
-        Mobile = request.form['userMobile']
-        Message = request.form['userMessage']
+        Name = request.POST.get('userName')
+        Mail = request.POST.get('userMail')
+        Mobile = request.POST.get('userMobile')
+        Message = request.POST.get('userMessage')
         if len(Name) == 0 or len(Mail) == 0 or len(Mobile) == 0:
             return False, ""
         else:

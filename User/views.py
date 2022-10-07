@@ -56,9 +56,6 @@ def newsFun(request,num):
         "newsDt"       : news.Date
     }
     return render(request, "User/news.html",newsData)
-    #return render_template("User/news.html", newsData=news.NewsHeader, newsImg=news.NewsImg, newsLink=news.NewsLink,
-                          # detailedNews=news.detailNews, pageCounter=news.URlNextPage, posCounter=news.counterPos,
-                          # newsDt=news.Date)
 
 
 # -- User Part Ends -- #

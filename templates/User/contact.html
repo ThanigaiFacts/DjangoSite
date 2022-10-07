@@ -6,8 +6,8 @@
    <div class="row"  style="margin:0;">
      <div class="col">
 
-     <form action = "% url 'contact' %}" method="post" name = "contact-form" onsubmit="return validateForm()" style="margin:2% auto;">
-
+     <form action = "{% url 'contact' %}" method="post" name = "contact-form" onsubmit="return validateForm()" style="margin:2% auto;">
+       {% csrf_token %}
       <h4 class="contact-title">Contact Me</h4>
       <div class = "contact-body">
         <label>
