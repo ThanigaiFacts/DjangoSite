@@ -1,10 +1,14 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect, render
+from adminControl import AdminControl
 import ShareMarket as shares
 
 # Create your views here.
 # -- Admin Part Starts -- #
+
+admin = AdminControl()
+
 
 # Admin Home page #
 
@@ -12,64 +16,62 @@ def admin_page(request):
     return HttpResponseRedirect(reverse('admin_home'))
 
 
-#@app.route("/admin/home")
-#@admin.login_required
+@admin.login_required
 def admin_home(request):
-    return render(request,"Admin/admin.html")
+    return render(request, "Admin/admin.html")
 
-'''
+
 # Admin Login Page #
-#@app.route("/admin/login", methods=['POST', 'GET'])
-def admin_login_page():
-    redirectPage,LoginMsg,showAlert = admin.proceedLogin()
+
+def admin_login_page(request):
+    redirectPage, LoginMsg, showAlert = admin.proceedLogin(request)
     if redirectPage == "LoginSuccess":
-        return redirect(url_for("admin_home"))
+        return HttpResponseRedirect(reverse("admin_home"))
     else:
-        return render_template(redirectPage,LoginStatus = LoginMsg,show_alert = showAlert)
+        param = {
+            "LoginStatus": LoginMsg,
+            "show_alert": showAlert
+        }
+        return render(request, redirectPage, param)
 
 
-#@app.route("/admin/logout")
-def admin_logout():
-    #redirectPage,LoginMsg = admin.logOut()
+def admin_logout(request):
     redirectPage = admin.logOut()
-    return redirect(redirectPage)
-    #return render_template(redirectPage,LoginStatus = LoginMsg)
+    return HttpResponseRedirect(redirectPage)
 
-'''
+
 # -- Admin Share Market Part starts -- #
 
+
 #  Stock Average Calculator Page #
-#@app.route("/admin/avg", methods=['POST', 'GET'])
-#@admin.login_required
+
+@admin.login_required
 def stockAvgCalculator(request):
-    isFieldEmpty,Text,FBQ,FBP,SBQ,SBP = shares.CalculateAveragePrice(request)
+    isFieldEmpty, Text, FBQ, FBP, SBQ, SBP = shares.CalculateAveragePrice(request)
     parm = {
-        "Fempty" :isFieldEmpty,
-        "outText":Text,
-        "FBQty"  :FBQ,
-        "FBPirce":FBP,
-        "SBQty"  :SBQ,
-        "SBPrice":SBP
+        "Fempty": isFieldEmpty,
+        "outText": Text,
+        "FBQty": FBQ,
+        "FBPirce": FBP,
+        "SBQty": SBQ,
+        "SBPrice": SBP
     }
-    return render(request,"Admin/AvgCalculator.html",parm)
-    #return render_template("Admin/AvgCalculator.html", Fempty=isFieldEmpty, outText=Text,FBQty = FBQ,FBPirce = FBP,SBQty = SBQ,SBPrice = SBP)
+    return render(request, "Admin/AvgCalculator.html", parm)
 
 
 #  Stock Investing Page #
-#@app.route("/admin/sm", methods=['POST', 'GET'])
-#@admin.login_required
+
+@admin.login_required
 def stockInvest(request):
     company = shares.getCompanyList()
-    isFieldsEmpty, Text,showAlert = shares.ShareMarketData(request)
+    isFieldsEmpty, Text, showAlert = shares.ShareMarketData(request)
     param = {
-        "Fempty" : isFieldsEmpty,
-        "outText" : Text,
-        "show_alert" : showAlert,
-        "Companies" : company
+        "Fempty": isFieldsEmpty,
+        "outText": Text,
+        "show_alert": showAlert,
+        "Companies": company
     }
-    return render(request,"Admin/ShareMarket.html",param)
-    #return render_template("Admin/ShareMarket.html", Fempty=isFieldsEmpty,outText=Text,show_alert = showAlert ,Companies=company)
-
+    return render(request, "Admin/ShareMarket.html", param)
 
 # -- Share Market Page Ends --#
 

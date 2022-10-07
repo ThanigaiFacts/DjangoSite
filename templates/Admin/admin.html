@@ -14,7 +14,7 @@
 
          <li class="nav-item item-style">
              <div class="dropdown">
-                <a class="nav-link link-style dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projects</a>
+                <a class="nav-link link-style dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Share Market</a>
                   <ul class="dropdown-menu dd-menu-style">
                      <li><a href="{% url 'stockInvest' %}" class="dropdown-item  dd-link-style">Invest</a></li>
                      <li><a class="dropdown-item dd-link-style" href="#">Trade</a></li>
@@ -23,7 +23,7 @@
              </div>
           </li>
          <li class="logout-item-style">
-           <a href="#" class = "admin-logout">Logout</a>
+           <a href="{% url 'admin_logout' %}" class = "admin-logout">Logout</a>
          </li>
         </ul>
         </div>
