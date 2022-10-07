@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Share Market Info{% endblock %}
 {% block backbtn %}
-  <a href="{{ url_for('admin_home') }}" class = "homeBtn">Back</a>
+{% load static %}
+  <a href="{% url 'admin_home' %}" class = "homeBtn">Back</a>
 {% endblock %}
 {% block content %}
   <div class = "container" style="margin:10% auto;">
    <div class="row"  style="margin:0">
      <div class="col">
-          <form action="{{ url_for('AvgCalculator') }}" method="post" style="margin:3% auto;padding:3%;">
-
+          <form action="{% url 'stockAvgCalculator' %}" method="post" style="margin:3% auto;padding:3%;">
+          {% csrf_token %}
     <table style="margin:auto;padding:3%;" class="ShareMarket-table" id="sm-avg-table">
          <h4 style="color:red;text-align:center;font-size:2rem;">Average Calculator</h4>
       <tr>

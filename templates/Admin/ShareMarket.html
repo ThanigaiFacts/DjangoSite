@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Share Market Detail {% endblock %}
 {% block backbtn %}
-  <a href="{{ url_for('admin_home') }}" class = "homeBtn">Back</a>
+  <a href="{% url 'admin_home'  %}" class = "homeBtn">Back</a>
 {% endblock %}
 {% block content %}
-
+{% load static %}
   <div class = "container" style="margin:10% auto;">
    <div class="row"  style="margin:0">
      <div class="col">
-      <form action="{{ url_for('ShareMarket') }}" method="post" style="margin:3% auto;padding:3%;">
-
+      <form action="{% url 'stockInvest'  %}" method="post" style="margin:3% auto;padding:3%;">
+      {% csrf_token %}
     <table class="ShareMarket-table" id="sm-inv-table">
          <h4 style="color:red;text-align:center;font-size:2rem;">Share Market Details</h4>
         <tr>
@@ -34,7 +34,7 @@
         </td>
          <td>
           :  <select id="CompanyList" name="CompanyNames" class="companylist-style" onchange="companyListChanged()">
-              {% for company in Companies: %}
+              {% for company in Companies %}
                  <option value="{{ company }}">{{ company }}</option>
               {% endfor %}
              </select>
@@ -57,7 +57,7 @@
           </label>
         </td>
         <td>
-          : <input type="text" name="BuyPrice" onkeypress= "return checkNum(event)" value = {{ BPirce }}>
+          : <input type="text" id="buyPrice" name="BuyPrice" onkeypress= "return checkNum(event)" value = {{ BPirce }}>
         </td>
       </tr>
       <tr>
@@ -84,57 +84,13 @@
   </div>
 </div>
   </div>
-<!--
-<script>
- {% if Fempty != None %}
-     alert("{{ outText }}")
- {% endif %}
 
- function actionChanged(){
-        //var selectElement = event.target;
-        //var value = selectElement.value;
-        var x = document.getElementById("CompanyList")
-        var y = document.getElementById("CompName")
-        var z = document.getElementById("actionListID")
-        if (z.value == "Buy")
-         {
-          var option = document.createElement("option")
-          option.text = "Other"
-          option.value = "Other"
-          x.add(option,x[0])
-          x.selectedIndex = "0";
-          y.value = "";
-        }
-        else{
-        if (x.options[0].value == "Other")
-        {
-         x.remove(0);
-        }
-        companyListChanged();
-        }
-
-}
-function companyListChanged(){
-  var x = document.getElementById("CompanyList")
-  var y = document.getElementById("CompName")
-  if(x[x.selectedIndex].value == "Other")
-  {
-   y.value = "";
-  }
-  else{
-     y.value = x[x.selectedIndex].value;
-  }
-
-}
-actionChanged();
-</script>
--->
 <script>
  {% if show_alert %}
      show_alert(" {{ outText }} ");
  {% endif %}
 </script>
 
-<script src="{{ url_for('static',filename = 'JS/invest.js') }}"></script>
+<script src="{% static 'JS/invest.js' %}"></script>
 
 {% endblock %}

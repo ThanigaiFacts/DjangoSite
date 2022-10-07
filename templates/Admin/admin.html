@@ -1,11 +1,6 @@
 {% extends "base.html" %}
-<!--
-{% block title %} Admin Dashboard {% endblock %}
- {% block backbtn %}
-  <a href="{{ url_for('admin_logout') }}" class = "homeBtn">Logout</a>
- {% endblock %}-->
-
 {% block header %}
+{% load static %}
  <!-- Navigation bar -->
     <section id="nav-section">
      <nav class="navbar bg-success navbar-dark navbar-expand-md">
@@ -16,31 +11,19 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav ms-auto">
-          <!--
-            <li class="nav-item item-style">
-           <div class="dropdown">
-              <button type="button" class="btn btn-outline-success text-light dropdown-toggle link-style" data-bs-toggle="dropdown">
-                  Share Market
-              </button>
-              <ul class="dropdown-menu dd-menu-style">
-                <li><a class="dropdown-item dd-link-style" href="{{ url_for('ShareMarket') }}">Invest</a></li>
-                <li><a class="dropdown-item dd-link-style" href="#">Trade</a></li>
-                <li><a class="dropdown-item dd-link-style" href="{{ url_for('AvgCalculator') }}">Stock Avg</a></li>
-              </ul>
-           </div>
-          </li>-->
+
          <li class="nav-item item-style">
              <div class="dropdown">
                 <a class="nav-link link-style dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projects</a>
                   <ul class="dropdown-menu dd-menu-style">
-                     <li><a href="{{ url_for('ShareMarket') }}" class="dropdown-item  dd-link-style">Invest</a></li>
+                     <li><a href="{% url 'stockInvest' %}" class="dropdown-item  dd-link-style">Invest</a></li>
                      <li><a class="dropdown-item dd-link-style" href="#">Trade</a></li>
-                     <li><a href="{{ url_for('AvgCalculator') }}" class="dropdown-item  dd-link-style">Stock Avg</a></li>
+                     <li><a href="{% url 'stockAvgCalculator' %}" class="dropdown-item  dd-link-style">Stock Avg</a></li>
                   </ul>
              </div>
           </li>
          <li class="logout-item-style">
-           <a href="{{ url_for('admin_logout') }}" class = "admin-logout">Logout</a>
+           <a href="#" class = "admin-logout">Logout</a>
          </li>
         </ul>
         </div>

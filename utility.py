@@ -9,7 +9,6 @@ def generateRandomNumber():
 
 def getBlogData():
     # https://mocki.io/fake-json-api --> json website
-     #return requests.get("https://mocki.io/v1/f4aff8ed-6d04-43e1-ac4f-ce373a4a64e0").json()
     return requests.get(os.getenv("BLOG_END_POINT")).json()
 
 
