@@ -17,7 +17,7 @@ def index(request):
 
 
 def home(request):
-    return render(request, "User\index.html")
+    return render(request, "User/index.html")
 
 # Contact page Routing #
 def contact(request):
