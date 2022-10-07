@@ -1,7 +1,6 @@
 import os
 import requests
 from datetime import datetime
-from flask import request
 
 
 ##### Stock Average #####
