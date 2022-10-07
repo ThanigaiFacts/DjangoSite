@@ -2,9 +2,10 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect,render
 import utility
-
+from news import News
 # Create your views here.
 
+news = News()
 
 # --- User Part Starts --- #
 
@@ -34,22 +35,30 @@ def NumberGuessing_fun(request):
 def blogIndexFun(request):
     global blogResp
     blogResp = utility.getBlogData()
-    #return HttpResponse("Blog")
     return render(request,"User/blogindex.html",{'jobj' : blogResp[0]["blog"]})
 
 
 def DetailBlog(request,num):
     global blogResp
-    #return render("User/blog.html", jobj=variable.blogResp, blogNum=num - 1)
     return render(request,"User/blog.html",{'jobj' :  blogResp[0]["blog"][num]})
 
 
 # News page Routing #
 def newsFun(request,num):
-   # news.loadNews(num)
+    news.loadNews(num)
+    newsData = {
+        "newsTxt"     :  news.NewsHeader,
+        "newsImg"      : news.NewsImg,
+        "newsLink"     : news.NewsLink,
+        "detailedNews" : news.detailNews,
+        "pageCounter"  : news.URlNextPage,
+        "posCounter"   : news.counterPos,
+        "newsDt"       : news.Date
+    }
+    return render(request, "User/news.html",newsData)
     #return render_template("User/news.html", newsData=news.NewsHeader, newsImg=news.NewsImg, newsLink=news.NewsLink,
                           # detailedNews=news.detailNews, pageCounter=news.URlNextPage, posCounter=news.counterPos,
                           # newsDt=news.Date)
-   return render(request,"User/news.html")
+
 
 # -- User Part Ends -- #

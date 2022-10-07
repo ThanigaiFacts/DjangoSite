@@ -32,10 +32,10 @@
 </div>
 
 <script>
-     var c = {{ posCounter }} ;
-     var newsTitle  =  {{ newsData|tojson }} ;
-     var newsImage  =  {{ newsImg|tojson }} ;
-     var detailNews =  {{ detailedNews|tojson }};
+     var c = {{ posCounter }};
+     var newsTitle =  {{ newsTxt|safe }} ;
+     var newsImage  =  {{ newsImg|safe }} ;
+     var detailNews =  {{ detailedNews|safe }};
 
      document.getElementById("News-data").innerHTML = newsTitle[c];
      document.getElementById("News-img").src = newsImage[c];
@@ -44,7 +44,6 @@
         document.getElementById("News-data").innerHTML = detailNews[c];
         document.getElementById("News-data").style.textAlign = "justify"
      }
-
 
      function disablebtn()
      {
@@ -61,7 +60,8 @@
        disablebtn();
        if (newsImage[c] == undefined){
          document.getElementById("Next-Btn").disabled = true;
-         window.location.assign(" {{ url_for('newsFun',num = pageCounter + 1) }}")
+         var cnt = {{ pageCounter }} + 1;
+         window.location.assign(" {% url 'news' pageCounter|add:'1' %}")
        }
        else{
          document.getElementById("News-img").src = newsImage[c];
@@ -76,11 +76,7 @@
        document.getElementById("News-img").src = newsImage[c];
        document.getElementById("News-data").innerHTML = newsTitle[c];
      }
-
-
-
 disablebtn();
 
 </script>
-
 {% endblock %}
