@@ -36,7 +36,7 @@ def admin_login_page(request):
 
 
 def admin_logout(request):
-    redirectPage = admin.logOut(request)
+    redirectPage = admin.logOut()
     return HttpResponseRedirect(redirectPage)
 
 
