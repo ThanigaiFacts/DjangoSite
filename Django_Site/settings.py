@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 #DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ["thanigaifacts.herokuapp.com/","127.0.0.1"]
+ALLOWED_HOSTS = ["thanigaifacts.herokuapp.com","127.0.0.1"]
 #ALLOWED_HOSTS = ["127.0.0.1"]
 
 
